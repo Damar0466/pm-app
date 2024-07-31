@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Private Message JKT48</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="lname">
+      <a href="/home">
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
+      <p class="mname">Adel</p>
+    </div>
+
+    <div class="content">
+      {% for message in messages %}
+      <div class="message">
+        {% if message.url.endswith('.mp3') or message.url.endswith('.wav') %}
+        <audio controls>
+          <source src="{{ message.url }}" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+        {% else %}
+        <img src="{{ message.url }}" alt="Image from Discord" />
+        {% endif %}
+
+        <div class="timestamp">Sent at: {{ message.time }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+  </body>
+</html>
